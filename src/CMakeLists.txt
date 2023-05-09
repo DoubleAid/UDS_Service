@@ -6,20 +6,53 @@ set(CMAKE_CXX_FLAGS "-std=c++14 -mavx2 -mno-avx512f -pipe -O2 -Wall -Wextra -fop
 
 set(PROJECT_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
+#add_definitions(-DTEST_RESOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/conf/")
+
 include_directories(${PROJECT_INCLUDE_DIRS})
 
-add_library(uds
-		doip/doip.cpp
-		)
+#catkin_package(INCLUDE_DIRS ${PROJECT_INCLUDE_DIRS}
+#		LIBRARIES
+#		map_common
+#		map_hdmap
+#		map_client_v1
+#		router_v2
+#		map_core
+#		map_refline
+#		map_refline_v2
+#		map_processor
+#		map_view
+#		)
 
-add_executable(server
-		server.cpp
-		)
+#link_directories(${CATKIN_DEVEL_PREFIX}/lib)
 
-add_executable(client
-		client.cpp
-		)
+#enable_testing()
+#find_package(GTest REQUIRED)
+#include_directories(${GTEST_INCLUDE_DIRS})
 
-target_link_libraries(client
+#find_package(Protobuf REQUIRED)
+#include_directories(${PROTOBUF_INCLUDE_DIRS})
 
-)
+#add_library(uds
+#		doip/doip.cpp
+#		)
+#
+#add_executable(server
+#		server/server.cpp
+#		)
+#
+#add_executable(client
+#		client/client.cpp
+#		)
+#
+#target_link_libraries(client
+#
+#)
+
+#install(DIRECTORY ${PROJECT_INCLUDE_DIRS}
+#		DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+#		FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"
+#)
+
+add_subdirectory(common)
+add_subdirectory(server)
+add_subdirectory(client)
