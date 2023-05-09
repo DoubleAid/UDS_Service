@@ -29,8 +29,8 @@ include_directories(${PROJECT_INCLUDE_DIRS})
 #find_package(GTest REQUIRED)
 #include_directories(${GTEST_INCLUDE_DIRS})
 
-#find_package(Protobuf REQUIRED)
-#include_directories(${PROTOBUF_INCLUDE_DIRS})
+find_package(Protobuf REQUIRED)
+include_directories(${PROTOBUF_INCLUDE_DIRS})
 
 #add_library(uds
 #		doip/doip.cpp
