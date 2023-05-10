@@ -1,6 +1,7 @@
 
 add_library(common_thread
 		thread_pool.cpp
+		threadsafe_queue.h
 )
 
 #install(
