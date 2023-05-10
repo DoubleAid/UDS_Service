@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+package guanggang.proto.config;
+
+option go_package = "guanggang/proto/config/uds_service";
+option

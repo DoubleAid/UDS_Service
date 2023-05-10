@@ -17,6 +17,8 @@
 
 //#include <google/protobuf/message.h>
 
+#include "src/common/util/proto_util.h"
+
 #define PORT 13200
 #define MAX_LISTEN_QUEUE 5
 
@@ -26,7 +28,9 @@ int main(int argc, char** argv) {
         exit(-1);
     }
 
+    std::string config_file = argv[1];
 
+    guanggang::common::util::loadProtoFile(config_file, )
 }
 
 

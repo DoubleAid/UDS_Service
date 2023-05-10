@@ -1,4 +1,0 @@
-C:\WINDOWS\system32\wsl.exe --distribution Ubuntu-18.04 --exec /bin/bash -c "export CMAKE_COLOR_DIAGNOSTICS=ON && export CLION_IDE=TRUE && export JETBRAINS_IDE=TRUE && cd /mnt/c/Users/guanggang.bian/Desktop/UDS_Service_with_DoIP/src/cmake-build-debug-wsl && /usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G 'CodeBlocks - Unix Makefiles' /mnt/c/Users/guanggang.bian/Desktop/UDS_Service_with_DoIP/src"
--- Configuring done
--- Generating done
--- Build files have been written to: /mnt/c/Users/guanggang.bian/Desktop/UDS_Service_with_DoIP/src/cmake-build-debug-wsl

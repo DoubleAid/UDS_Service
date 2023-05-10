@@ -1,1 +1,0 @@
-/usr/bin/c++  -std=c++14 -mavx2 -mno-avx512f -pipe -O2 -Wall -Wextra -fopenmp -fPIC -pthread -g  -rdynamic CMakeFiles/client.dir/client.cpp.o  -o client ../common/thread/libcommon_thread.a 
