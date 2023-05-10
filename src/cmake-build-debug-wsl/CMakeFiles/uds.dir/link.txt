@@ -1,0 +1,2 @@
+/usr/bin/ar qc libuds.a  CMakeFiles/uds.dir/doip/doip.cpp.o
+/usr/bin/ranlib libuds.a

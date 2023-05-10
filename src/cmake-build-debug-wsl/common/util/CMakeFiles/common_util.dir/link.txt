@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcommon_util.a  CMakeFiles/common_util.dir/proto_util.cpp.o
+/usr/bin/ranlib libcommon_util.a
