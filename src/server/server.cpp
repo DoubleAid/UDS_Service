@@ -16,8 +16,13 @@
 #include <unistd.h>
 
 //#include <google/protobuf/message.h>
-
-#include "src/common/util/proto_util.h"
+// #include "../common/proto/config_server.pb.h"
+// #include "common/proto/config_server.pb.h"
+// #include "common/config_server.pb.h"
+// #include "proto/config_server.pb.h"
+// #include "config_server.pb.h"
+#include "protos/config_server.pb.h"
+#include "common/util/proto_util.h"
 
 #define PORT 13200
 #define MAX_LISTEN_QUEUE 5
@@ -30,7 +35,7 @@ int main(int argc, char** argv) {
 
     std::string config_file = argv[1];
 
-    guanggang::common::util::loadProtoFile(config_file, )
+    // guanggang::common::util::loadProtoFile(config_file, )
 }
 
 

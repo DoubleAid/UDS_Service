@@ -3,4 +3,16 @@ syntax = "proto3";
 package guanggang.proto.config;
 
 option go_package = "guanggang/proto/config/uds_service";
-option
+option java_package = "guanggang.bian.proto";
+option java_outer_classname = "UDS_Service";
+option java_multiple_files = false;
+
+message Url {
+    string host = 1;
+    string port = 2;
+}
+
+message ServiceConfig {
+    Url url = 1;
+    int32 thread_pool_num = 2;
+}

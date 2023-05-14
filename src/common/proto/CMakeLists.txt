@@ -1,0 +1,18 @@
+FILE(GLOB_RECURSE PROTOS_ALL RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/proto/.. *.proto)
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROTOS_ALL})
+
+add_library(common_proto SHARED
+    ${PROTO_SRCS}
+)
+
+add_library(UDS SHARED ${PROTO_SRCS})
+
+target_link_libraries(common_proto
+    ${PROTBUF_LIBRARIES}
+)
+
+install(TARGETS common_proto
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
