@@ -1,0 +1,83 @@
+set -e
+
+# set color
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+# set color end
+
+exist_clear_nonexist_create() {
+    if [ ! -d "$1" ] then
+        mkdir -p "$1"
+    else
+        rm -rf "$1"/*
+    fi
+}
+
+usage() {
+    echo "Usage: $0 [options]"
+    echo "  -h, --help          Display this help message."
+    echo "  -t, --target        Specify the target operation system to build."
+    echo "  -r, --release       Build in release mode."
+    echo "  -c, --clean         Clean the build and release directory."
+}
+
+parseArgs() {
+    while [ "$#" -gt 0 ]
+    do
+        case $1 in
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            -t|--target)
+                TARGET="$2"
+                shift
+                ;;
+            -r|--release)
+                exist_clear_nonexist_create build
+                RELEASE=1
+                ;;
+            -c|--clean)
+                rm -rf build
+                rm -rf release
+                exit 0
+                ;;
+            *)
+                echo "Unknown parameter passed: $1"
+                usage
+                exit 1
+                ;;
+        esac
+        shift
+    done
+}
+
+min_init() {
+    RELEASE=0
+}
+
+main() {
+    min_init
+    parseArgs "$@"
+    if [ ! -d "build" ]; then
+        mkdir build
+    fi
+    pushd build
+    echo -e "${CYAN}============ cmake ../src ============${NC}"
+    cmake ../src
+    echo -e "${CYAN}============ make -j 8 ============${NC}"
+    make -j 8
+    popd
+    if [ "$RELEASE" -eq 1 ]; then
+        echo -e "${CYAN}============ build finished, copy to release ============${NC}"
+        exist_clear_nonexist_create release
+        exist_clear_nonexist_create release/client
+        exist_clear_nonexist_create release/server
+        cp build/server/uds_server release/server
+        cp build/client/tcp_client release/client
+        cp build/client/udp_client release/client
+    fi
+    echo -e "${CYAN}done${NC}"
+}
+
+main "$@"
