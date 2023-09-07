@@ -1,5 +1,5 @@
-project(uds_server)
 cmake_minimum_required(VERSION 3.5)
+project(uds_server)
 
 set(CMAKE_CXX_FLAGS "-std=c++14 -mavx2 -mno-avx512f -pipe -O2 -Wall -Wextra -fopenmp -fPIC -pthread")
 
