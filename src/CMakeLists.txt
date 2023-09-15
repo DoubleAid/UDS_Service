@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 project(uds_server)
 
-set(CMAKE_CXX_FLAGS "-std=c++14 -mavx2 -mno-avx512f -pipe -O2 -Wall -Wextra -fopenmp -fPIC -pthread")
+# set(CMAKE_CXX_FLAGS "-std=c++14 -mavx2 -mno-avx512f -pipe -O2 -Wall -Wextra -fopenmp -fPIC -pthread")
+set(CMAKE_CXX_FLAGS "-std=c++14 -mavx2 -mno-avx512f -pipe -O2 -Wall -Wextra -fPIC -pthread")
 
 set(PROJECT_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/..)
 

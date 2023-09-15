@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <unistd.h>
 #include "Messages.h"
 #include "src/common/utils/converter.h"
 
@@ -39,13 +40,18 @@ Message::Message(uint8_t protocol_version, uint16_t payload_type, const std::str
     set_payload(payload_tmp);
 }
 
+void Message::set_protocol_version(uint8_t protocol_version) {
+    protocol_version_ = protocol_version;
+    inverse_protocol_version_ = protocol_version_ ^ 0xFF;
+}
+
+void Message::set_payload_type(uint16_t payload_type) {
+    payload_type_ = payload_type;
+}
+
 void Message::set_payload(uint8_t *payload) {
     const char* payload_tmp = reinterpret_cast<const char*>(payload);
     payload_ = std::vector<uint8_t>(payload, payload + std::strlen(payload_tmp));
-    std::cout << "try to output payload length: " << std::strlen(payload_tmp) << std::endl;
-    for (size_t i = 0; i < std::strlen(payload_tmp); i++) {
-        std::cout << payload_[i] << std::endl;
-    }
     payload_length_ = static_cast<uint32_t>(std::strlen(payload_tmp)); 
 }
 
@@ -58,8 +64,12 @@ void Message::set_payload(char* payload) {
     set_payload(reinterpret_cast<uint8_t*>(payload));
 }
 
-uint16_t Message::get_protocol_version() const {
-    return protocol_version_ << 8 | inverse_protocol_version_;
+uint8_t Message::get_protocol_version() const {
+    return protocol_version_;
+}
+
+uint16_t Message::get_version_info() const {
+    return (protocol_version_ << 8) | inverse_protocol_version_;
 }
 
 uint16_t Message::get_payload_type() const {
@@ -96,7 +106,7 @@ std::ostream& operator<<(std::ostream& os, const Message& message) {
     uint8_t *msg = message.get_message();
     size_t msg_len = message.get_message_length();
     for (size_t i = 0; i < msg_len; i++) {
-        os << std::setfill(0) << std::setw(2) << std::hex << int(msg[i]) << " ";
+        os << std::setfill('0') << std::setw(2) << std::hex << int(msg[i]) << " ";
     }
     return os;
 }
