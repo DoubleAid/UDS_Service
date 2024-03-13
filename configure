@@ -16,9 +16,10 @@ exist_clear_nonexist_create() {
 usage() {
     echo "Usage: $0 [options]"
     echo "  -h, --help          Display this help message."
-    echo "  -t, --target        Specify the target operation system to build."
+    echo "  -p, --platform      Specify the target platform (x86, aarch64) to build."
     echo "  -r, --release       Build in release mode."
     echo "  -c, --clean         Clean the build and release directory."
+    echo "  -g, --gdb           Build with debug symbols."
 }
 
 parseArgs() {
@@ -29,8 +30,8 @@ parseArgs() {
                 usage
                 exit 0
                 ;;
-            -t|--target)
-                TARGET="$2"
+            -t|--platform)
+                PLATFORM="$2"
                 shift
                 ;;
             -r|--release)
@@ -41,6 +42,9 @@ parseArgs() {
                 rm -rf build
                 rm -rf release
                 exit 0
+                ;;
+            -g|--gdb)
+                GDB=1
                 ;;
             *)
                 echo "Unknown parameter passed: $1"
@@ -54,6 +58,8 @@ parseArgs() {
 
 min_init() {
     RELEASE=0
+    PLATFORM="x86"
+    GDB=0
 }
 
 main() {
@@ -62,9 +68,13 @@ main() {
     if [ ! -d "build" ]; then
         mkdir build
     fi
+    PARAM=""
+    if [ $GDB -eq 1]; then
+        PARAM="-DCMAKE_BUILD_TYPE=Debug"
+    fi
     pushd build
-    echo -e "${CYAN}============ cmake ../src ============${NC}"
-    cmake ../src
+    echo -e "${CYAN}============ cmake -DTARGET_PLATFORM=$PLATFORM $PARAM ../src ============${NC}"
+    cmake -DTARGET_PLATFORM=$PLATFORN $PARAM ../src
     echo -e "${CYAN}============ make -j 8 ============${NC}"
     make -j 8
     popd
